@@ -60,7 +60,7 @@ namespace CheckIfUserExists.Controllers
                     var faceId = detectedFaces[0]?.FaceId;
                     if (faceId != null && detectedFaces.Count==1)
                     {
-                        string personGroupId = "example-group-id";
+                        string personGroupId = _settings.PersonGroupId;
                         IList<Guid> faceIds = new List<Guid> { faceId.Value };
                         IList<IdentifyResult> results = await _faceClient.Face.IdentifyAsync(faceIds, personGroupId);
                         _logger.LogInformation("Calling IdentifyAsync with faceIds: {FaceIds} and personGroupId: {PersonGroupId}", faceIds, personGroupId);
@@ -123,7 +123,7 @@ namespace CheckIfUserExists.Controllers
             {
                 return BadRequest("Invalid request data.");
             }
-            string personGroupId = "example-group-id";
+            string personGroupId = _settings.PersonGroupId;
             IList<Person> persons = await _faceClient.PersonGroupPerson.ListAsync(personGroupId);
             if (persons == null || persons.Count == 0)
             {
@@ -150,7 +150,7 @@ namespace CheckIfUserExists.Controllers
         [HttpPost("DeletePersonByPhotoPath")]
         public async Task<IActionResult> DeletePersonByPhotoPath([FromBody] PhotoPathRequest request)
         {
-            string personGroupId = "example-group-id";
+            string personGroupId = _settings.PersonGroupId;
             if (request == null || string.IsNullOrEmpty(request.PhotoPath))
             {
                 return BadRequest("Please provide a valid photo path.");
@@ -224,86 +224,6 @@ namespace CheckIfUserExists.Controllers
 
 
     }
-
-
-
-    //[HttpPost("DeleteFaceFromPersonGroup")]
-    //public async Task<IActionResult> DeleteFaceFromPersonGroup([FromBody] PhotoPathRequest request)
-    //{
-    //    if (request == null || string.IsNullOrEmpty(request.PhotoPath))
-    //    {
-    //        return BadRequest("Please provide a valid photo path.");
-    //    }
-
-    //    // Detect face in the provided photo
-    //    Guid? personId = await GetPersonIdFromPhotoPath(request.PhotoPath);
-    //    if (personId.HasValue)
-    //    {
-    //        try
-    //        {
-    //            string personGroupId = _settings.PersonGroupId; // Replace with your actual person group ID
-
-
-
-    //            await _faceClient.PersonGroupPerson.DeleteAsync(personGroupId, personId.Value);
-
-    //            return Ok("1");
-    //        }
-    //        catch (APIErrorException apiEx)
-    //        {
-    //            _logger.LogError(apiEx, "Error deleting face from person group");
-    //            return StatusCode(500, "Internal server error calling Face API DeleteFaceAsync");
-    //        }
-    //    }
-    //    else
-    //    {
-    //        return BadRequest("No face detected in the provided photo.");
-    //    }
-    //}
-
-
-    //private async Task<Guid?> GetPersonIdFromPhotoPath(string photoPath)
-    //{
-    //    using (Stream photoStream = System.IO.File.OpenRead(photoPath))
-    //    {
-    //        IList<DetectedFace> detectedFaces = await _faceClient.Face.DetectWithStreamAsync(
-    //            image: photoStream,
-    //            recognitionModel: _settings.RecognitionModel,
-    //            detectionModel: _settings.DetectionModel);
-
-    //        if (detectedFaces != null && detectedFaces.Count > 0)
-    //        {
-    //            // Assuming you have a person group ID set up
-    //            Guid personGroupId = new Guid("example-group-id");
-    //            string personGroup=personGroupId.ToString();
-    //            // Identify the detected faces against the person group
-    //            IList<Guid> detectedFaceIds = detectedFaces.Select(face => face.FaceId.Value).ToList();
-    //            IList<IdentifyResult> identifyResults = await _faceClient.Face.IdentifyAsync(detectedFaceIds, personGroup);
-
-    //            // Assuming each detected face should ideally match only one person
-    //            foreach (IdentifyResult identifyResult in identifyResults)
-    //            {
-    //                if (identifyResult.Candidates.Count > 0)
-    //                {
-    //                    // Assuming one face matches one person (adjust as per your scenario)
-    //                    Guid personId = identifyResult.Candidates[0].PersonId;
-    //                    return personId;
-    //                }
-    //            }
-    //        }
-    //        return null;
-    //    }
-    //}
-
-
-
-
-
-
-
-
-
-
 
 
 
