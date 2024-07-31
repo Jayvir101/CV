@@ -1,0 +1,1 @@
+ASP.NET Core CV submission system with SQL Server storage. Integrated Azure Face API to detect duplicate entries and ChatGPT API for verifying CV content and summarizing text. Added PDF text extraction, group photo verification, and entry deletion functionalities.
