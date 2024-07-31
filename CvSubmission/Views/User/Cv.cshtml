@@ -1,0 +1,69 @@
+﻿@model CvSubmission.Models.UserForm
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CV Submission</title>
+    <link rel="stylesheet" href="~/css/cvstyle.css" />
+    <script>
+        function validateForm() {
+            const fileInput = document.getElementById('cv');
+            const submitButton = document.querySelector('form button[type="submit"]');
+            const filePath = fileInput.value;
+            const allowedExtensions = /(\.pdf|\.docx)$/i;
+
+            if (!filePath) {
+                alert('Please upload a file.');
+                submitButton.disabled = true;
+                return false;
+            }
+
+            if (!allowedExtensions.exec(filePath)) {
+                alert('Please upload a file with .pdf or .docx extension.');
+                fileInput.value = '';
+                submitButton.disabled = true;
+                return false;
+            }
+
+            submitButton.disabled = false;
+            return true;
+        }
+
+        document.addEventListener('DOMContentLoaded', function () {
+            const fileInput = document.getElementById('cv');
+            const form = document.querySelector('form');
+
+            fileInput.addEventListener('change', validateForm);
+            form.addEventListener('submit', function (event) {
+                if (!validateForm()) {
+                    event.preventDefault();
+                }
+            });
+        });
+    </script>
+</head>
+<body>
+    <div id="container">
+        <form asp-action="Submit" method="post" enctype="multipart/form-data">
+            <div>
+                <label for="name">Name:</label>
+                <input type="text" id="name" name="Name" />
+            </div>
+            <div>
+                <label for="cv">CV:</label>
+                <input type="file" id="cv" name="CV" />
+            </div>
+            <button type="submit" disabled>Submit</button>
+        </form>
+
+        <div>
+            @if (ViewBag.Response != null)
+            {
+                <p>@ViewBag.Response</p>
+            }
+        </div>
+    </div>
+</body>
+</html>

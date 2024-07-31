@@ -1,0 +1,158 @@
+﻿@model CvSubmission.Models.FormEntryViewModel
+@{
+    ViewData["Title"] = "Form Entry";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<link rel="stylesheet" href="~/css/form-styles.css" asp-append-version="true" />
+
+<div class="box">
+    <h2>CV Submission</h2>
+
+    <div>
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    </div>
+    @if (TempData["SuccessMessage"] != null)
+    {
+        <div class="alert alert-success">
+            @TempData["SuccessMessage"]
+        </div>
+    }
+
+    <div class="form-container" style="position: relative;">
+        <div class="form-left">
+            <form id="uploadForm" asp-action="SubmitForm" method="post" enctype="multipart/form-data">
+                <div class="form-group">
+                    <label asp-for="Name" class="control-label"></label>
+                    <input asp-for="Name" class="form-control" placeholder="Your Full Name" />
+                    <span asp-validation-for="Name" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Email" class="control-label"></label>
+                    <input asp-for="Email" class="form-control" placeholder="example@gmail.com" />
+                    <span asp-validation-for="Email" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Photo" class="control-label"></label>
+                    <input asp-for="Photo" type="file" class="form-control-file" id="photoInput" accept=".jpeg,.jpg,.png,.jfif" />
+                    <span asp-validation-for="Photo" class="text-danger"></span>
+                    <div id="photoError" class="text-danger"></div>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Cv" class="control-label"></label>
+                    <input asp-for="Cv" type="file" class="form-control-file" />
+                    <span asp-validation-for="Cv" class="text-danger"></span>
+                    <div id="cvError" class="text-danger"></div>
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="Submit" class="btn btn-primary" />
+                    <input type="reset" value="Reset" class="btn btn-secondary" />
+                </div>
+            </form>
+        </div>
+        <div class="form-right">
+            
+            <div><img id="photoPreview" src="#" alt="Your photo" /></div>
+        </div>
+    </div>
+
+    <!-- Loading icon -->
+    <div id="loadingSpinner" class="loading-overlay" style="display: none;">
+        <img src="~/images/loading.gif" alt="Loading..." />
+    </div>
+</div> 
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+        $(document).submit(function () {
+            $("#loadingSpinner").show();
+        });
+    $(document).ready(function () {
+            // Photo preview
+            $("#photoInput").change(function () {
+                const file = this.files[0];
+                if (file) {
+                    const reader = new FileReader();
+                    reader.onload = function (e) {
+                        $('#photoPreview').attr('src', e.target.result).show();
+                    }
+                    reader.readAsDataURL(file);
+                } else {
+                    $('#photoPreview').hide();
+                }
+            });
+
+            $("#uploadForm").submit(function (e) {
+                const fileInput = $("#Photo")[0];
+                const file = fileInput.files[0];
+                const errorContainer = $("#photoError");
+                errorContainer.text('');
+
+                if (file) {
+                    const maxFileSize = 6 * 1024 * 1024; // 6 MB
+                    const minFileSize = 2 * 1024; // 2 KB
+
+                    if (file.size > maxFileSize) {
+                        errorContainer.text('File size cannot exceed 6 MB.');
+                        e.preventDefault();
+                        return;
+                    }
+
+                    if (file.size < minFileSize) {
+                        errorContainer.text('File size should be at least 1 KB.');
+                        e.preventDefault();
+                        return;
+                    }
+
+                    const permittedExtensions = ['jpeg', 'jpg', 'png'];
+                    const fileExtension = file.name.split('.').pop().toLowerCase();
+
+                    if (!permittedExtensions.includes(fileExtension)) {
+                        errorContainer.text('File type is not supported. Only JPEG/JPG/PNG are allowed.');
+                        e.preventDefault();
+                        return;
+                    }
+                }
+
+                const cvInput = $("#Cv")[0];
+                const cvFile = cvInput.files[0];
+                const cvErrorContainer = $("#cvError");
+                cvErrorContainer.text('');
+
+                if (!cvFile) {
+                    cvErrorContainer.text('Please select a CV file.');
+                    e.preventDefault();
+                    return;
+                }
+
+                const maxCvFileSize = 10 * 1024 * 1024; // 10 MB
+                const minCvFileSize = 5 * 1024; // 5 KB
+
+                if (cvFile.size > maxCvFileSize) {
+                    cvErrorContainer.text('CV file size cannot exceed 10 MB.');
+                    e.preventDefault();
+                    return;
+                }
+
+                if (cvFile.size < minCvFileSize) {
+                    cvErrorContainer.text('CV file size should be at least 5 KB.');
+                    e.preventDefault();
+                    return;
+                }
+
+                const permittedCvExtensions = ['pdf'];
+                const cvFileExtension = cvFile.name.split('.').pop().toLowerCase();
+
+                if (!permittedCvExtensions.includes(cvFileExtension)) {
+                    cvErrorContainer.text('CV file type is not supported. Only PDF Files are allowed.');
+                    e.preventDefault();
+                    return;
+                }
+
+                // Show loading icon
+                $("#loadingIcon").show();
+            });
+        });</script>
+}

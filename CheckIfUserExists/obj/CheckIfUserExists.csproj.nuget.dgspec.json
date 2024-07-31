@@ -1,0 +1,89 @@
+{
+  "format": 1,
+  "restore": {
+    "/Users/jayvirsinhchavada/Desktop/Projects/Project Internship/CvSubmission/CheckIfUserExists/CheckIfUserExists.csproj": {}
+  },
+  "projects": {
+    "/Users/jayvirsinhchavada/Desktop/Projects/Project Internship/CvSubmission/CheckIfUserExists/CheckIfUserExists.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/Users/jayvirsinhchavada/Desktop/Projects/Project Internship/CvSubmission/CheckIfUserExists/CheckIfUserExists.csproj",
+        "projectName": "CheckIfUserExists",
+        "projectPath": "/Users/jayvirsinhchavada/Desktop/Projects/Project Internship/CvSubmission/CheckIfUserExists/CheckIfUserExists.csproj",
+        "packagesPath": "/Users/jayvirsinhchavada/.nuget/packages/",
+        "outputPath": "/Users/jayvirsinhchavada/Desktop/Projects/Project Internship/CvSubmission/CheckIfUserExists/obj/",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "/Users/jayvirsinhchavada/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net5.0"
+        ],
+        "sources": {
+          "/usr/local/share/dotnet/sdk/7.0.316/Sdks/Microsoft.NET.Sdk.Web/library-packs": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net5.0": {
+            "targetAlias": "net5.0",
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net5.0": {
+          "targetAlias": "net5.0",
+          "dependencies": {
+            "Microsoft.Azure.CognitiveServices.Vision.Face": {
+              "target": "Package",
+              "version": "[2.8.0-preview.3, )"
+            },
+            "Swashbuckle.AspNetCore": {
+              "target": "Package",
+              "version": "[5.6.1, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "downloadDependencies": [
+            {
+              "name": "Microsoft.AspNetCore.App.Ref",
+              "version": "[5.0.0, 5.0.0]"
+            },
+            {
+              "name": "Microsoft.NETCore.App.Host.osx-x64",
+              "version": "[5.0.17, 5.0.17]"
+            },
+            {
+              "name": "Microsoft.NETCore.App.Ref",
+              "version": "[5.0.0, 5.0.0]"
+            }
+          ],
+          "frameworkReferences": {
+            "Microsoft.AspNetCore.App": {
+              "privateAssets": "none"
+            },
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/7.0.316/RuntimeIdentifierGraph.json"
+        }
+      }
+    }
+  }
+}

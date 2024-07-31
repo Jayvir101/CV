@@ -1,0 +1,40 @@
+﻿<Properties StartupConfiguration="{C8161FED-94AF-4EB5-BA2D-08F9A415D48D}|Default">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Program.cs">
+    <Files>
+      <File FileName="appsettings.json" Line="1" Column="1" />
+      <File FileName="appsettings.Development.json" Line="1" Column="1" />
+      <File FileName="Program.cs" Line="96" Column="1" />
+      <File FileName="Startup.cs" Line="83" Column="1" />
+      <File FileName="../../ChatgptTest/Startup.cs" Line="1" Column="1" />
+      <File FileName="Configurations/FaceDetectionServicecs.cs" Line="1" Column="1" />
+      <File FileName="Configurations/GlobalSettings.cs" Line="1" Column="1" />
+      <File FileName="../CheckIfUserExists/Program.cs" Line="1" Column="1" />
+      <File FileName="../CheckIfUserExists/Startup.cs" Line="1" Column="1" />
+      <File FileName="../CheckIfUserExists/appsettings.json" Line="18" Column="1" />
+      <File FileName="../../../../../.nuget/packages/microsoft.aspnetcore.app/2.2.8/build/netcoreapp2.2/Microsoft.AspNetCore.App.targets" Line="14" Column="5" />
+      <File FileName="../../../../../../../usr/local/share/dotnet/sdk/7.0.317/Sdks/Microsoft.NET.Sdk/targets/Microsoft.NET.Sdk.DefaultItems.Shared.targets" Line="111" Column="5" />
+    </Files>
+    <Pads>
+      <Pad Id="ProjectPad">
+        <State name="__root__">
+          <Node name="CvSubmission" expanded="True">
+            <Node name="ChatgptTest" expanded="True" />
+            <Node name="CheckIfUserExists" expanded="True" />
+            <Node name="CvSubmission" expanded="True">
+              <Node name="Configurations" expanded="True" />
+              <Node name="appsettings.json" expanded="True" />
+              <Node name="Program.cs" selected="True" />
+            </Node>
+          </Node>
+        </State>
+      </Pad>
+    </Pads>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MonoDevelop.Ide.ItemProperties.CvSubmission PreferredExecutionTarget="/System/Volumes/Preboot/Cryptexes/App/System/Applications/Safari.app" />
+  <MultiItemStartupConfigurations />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+</Properties>

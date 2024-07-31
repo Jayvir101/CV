@@ -1,0 +1,41 @@
+﻿@model CvSubmission.Models.SuccessViewModel
+
+@{
+    ViewData["Title"] = "Form Submission Successful";
+}
+<link rel="stylesheet" href="~/css/success-css.css" asp-append-version="true" />
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>@ViewData["Title"]</title>
+    <link rel="stylesheet" href="~/css/Success.css" />
+</head>
+<body>
+
+    <h2>@ViewData["Title"]</h2>
+    <p>@TempData["SuccessMessage"]</p>
+
+    <table class="table">
+        <tr>
+            <th>Name:</th>
+            <td>@Model.Name</td>
+        </tr>
+        <tr>
+            <th>Email:</th>
+            <td>@Model.Email</td>
+        </tr>
+        <tr>
+            <th>Photo:</th>
+            <td><img src="@Url.Content("~/uploads/photo/" + Model.PhotoFileName)" alt="User Photo" style="max-width: 100px; height:auto" /></td>
+        </tr>
+    </table>
+
+    <a href="@Url.Action("FormEntries", "Home")" class="btn btn-primary" style="background-color: black; color: white; border: none; cursor: pointer;">View Entries</a>
+    <a href="@Url.Action("Entry", "Home")" class="btn btn-primary" style="background-color: black; color: white; border: none; cursor: pointer;">Add Another Profile</a>
+
+</body>
+</html>

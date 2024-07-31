@@ -1,0 +1,93 @@
+﻿
+@model CvSubmission.Models.FormEntryViewModel
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/table-styles.css" />
+
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+
+    <style>
+        .modal-xl {
+            max-width: 1000px; /* Adjust as needed */
+        }
+    </style>
+
+    <h2>Submitted Entries</h2>
+    <form method="get" asp-action="FormEntries" asp-controller="Home" class="form-inline mb-3">
+        <input type="text" id="searchInput" name="searchTerm" class="form-control mr-2" placeholder="Search by name" value="@ViewData["searchTerm"]" />
+        <button type="submit" class="btn btn-dark" style="background-color:black;color:white;">Search</button>
+    </form>
+    <div class="table-container">
+        <table id="entriesTable" class="table table-bordered table-striped" style="border: 2px solid black">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Photo</th>
+                    <th>CV</th>
+                    <th>Highlights</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var entry in Model.Entries)
+                {
+                    <tr>
+                        <td>@entry.Name</td>
+                        <td>@entry.Email</td>
+                        <td><a href="~/uploads/photo/@entry.PhotoFileName" target="_blank">View Photo</a></td>
+                        <td><a href="~/uploads/cv/@entry.CvFileName" target="_blank">View CV</a></td>
+                        <td>
+                            <button type="button" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#highlightsModal@(entry.Id)">
+                                View Highlights
+                            </button>
+
+                            <!-- Modal -->
+                            <div class="modal fade" id="highlightsModal@(entry.Id)" tabindex="-1" role="dialog" aria-labelledby="highlightsModalLabel@(entry.Id)" aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-scrollable modal-xl" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="highlightsModalLabel@(entry.Id)">Highlights</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <pre>
+                                                @entry.Highlights
+                                            </pre>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <form asp-action="Delete" asp-controller="Home" method="post" onsubmit="return confirm('Are you sure you want to delete this entry?');">
+                                <input type="hidden" name="id" value="@entry.Id" />
+                                <button type="submit" class="btn btn-sm btn-danger">Delete</button>
+                            </form>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+    <nav>
+        <ul class="pagination">
+            @for (int i = 1; i <= Model.TotalPages; i++)
+            {
+                <li class="page-item @(i == Model.CurrentPage ? "active" : "")">
+                    <a class="page-link" href="@Url.Action("FormEntries", new { pageNumber = i, searchTerm = ViewData["searchTerm"] })" style="background-color:black;color:white;">@i</a>
+                </li>
+            }
+        </ul>
+    </nav>
+
+    @section Scripts {
+        @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    }

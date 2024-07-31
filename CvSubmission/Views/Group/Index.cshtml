@@ -1,0 +1,37 @@
+﻿@{
+    ViewData["Title"] = "Upload Group Photo";
+}
+
+
+<link rel="stylesheet" href="~/css/group-styles.css" asp-append-version="true" />
+
+<h2>Upload Group Photo</h2>
+
+<form asp-action="UploadGroupImage" method="post" enctype="multipart/form-data">
+    <div class="form-group">
+        <label for="groupPhoto">Group Photo:</label>
+        <input type="file" class="form-control" name="img" required />
+    </div>
+    <button type="submit" class="btn btn-primary">Upload</button>
+</form>
+
+@if (TempData["StatusMessage"] != null)
+{
+    <div class="alert alert-success mt-3">
+        @Html.Raw(ViewBag.StatusMessage) <!-- Render HTML content as raw -->
+    </div>
+}
+
+@if (TempData["errorMessage"] != null)
+{
+    <div class="alert alert-danger mt-3">
+        @ViewBag.errorMessage
+    </div>
+}
+
+@if (ViewBag.TotalPeopleDetected != null)
+{
+    <div class="alert alert-info mt-3">
+        @ViewBag.TotalPeopleDetected
+    </div>
+}

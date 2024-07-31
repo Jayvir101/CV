@@ -1,0 +1,93 @@
+﻿* {
+    margin: 0;
+    padding: 0;
+}
+
+.table-container {
+    max-height: 600px; /* Adjust the height as needed */
+    overflow-y: auto;
+    overflow-x: auto; /* Add horizontal scrolling */
+    border: 1px solid #dee2e6;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin: 20px 0;
+    background-color: #ffffff;
+}
+
+body {
+    background-color: #d9bfad;
+}
+
+.table {
+    width: 100%;
+    border-collapse: collapse;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+    .table th, {
+        padding: 12px 15px;
+        text-align: left;
+        border: 2px solid black;
+        white-space: nowrap; /* Prevent text wrapping for better readability */
+    }
+
+    .table td {
+        padding: 12px 15px;
+        text-align: left;
+        border: 1px solid grey;
+        white-space: nowrap; /* Prevent text wrapping for better readability */
+    }
+
+    .table th {
+        position: sticky;
+        top: 0;
+        background-color: white;
+        color: black;
+        border-bottom: 2px solid #dee2e6;
+        cursor: pointer;
+        user-select: none;
+        z-index: 2; /* Ensure the header is above the content */
+    }
+
+        .table th.sort-asc:after {
+            content: " \25B2"; /* Unicode character for upward arrow */
+        }
+
+        .table th.sort-desc:after {
+            content: " \25BC"; /* Unicode character for downward arrow */
+        }
+
+    .table tbody tr:nth-child(even) {
+        background-color: #f8f9fa;
+    }
+
+    .table tbody tr:nth-child(odd) {
+        background-color: #ffffff;
+    }
+
+    .table tbody tr:hover {
+        background-color: #e2e6ea;
+    }
+
+    .table tbody tr {
+        transition: background-color 0.3s ease;
+    }
+
+#sortNameBtn {
+    background-color: black;
+    color: white;
+    border: none;
+}
+/* Responsive Design */
+/*@media (max-width: 768px) {
+    .table-container {
+        overflow-x: auto;
+        max-height: 700px;  
+    }
+
+    .table th,
+    .table td {
+        white-space: nowrap; 
+        padding: 10px;
+    }
+}*/
